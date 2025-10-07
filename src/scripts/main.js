@@ -1,4 +1,4 @@
-'use stdict';
+'use strict';
 
 const table = document.querySelector('table');
 const tHeadRows = [...table.tHead.rows];
