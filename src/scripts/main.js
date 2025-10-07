@@ -2,8 +2,11 @@
 
 const table = document.querySelector('table');
 const tHeadRows = table.tHead ? [...table.tHead.rows] : [];
-const firstTBody = table.tBodies.length ? table.tBodies[0] : null;
-const tBodyRows = firstTBody ? [...firstTBody.rows] : [];
+const tBodyRows = [...table.tBodies].reduce((rows, tBody) => {
+  rows.push(...tBody.rows);
+
+  return rows;
+}, []);
 const tFootRows = table.tFoot ? [...table.tFoot.rows] : [];
 
 const newColumn = (tEntity) => {
