@@ -1,15 +1,25 @@
 'use strict';
 
 const table = document.querySelector('table');
-const tHeadRows = [...table.tHead.rows];
-const tBodyRows = [...table.tBodies[0].rows];
-const tFootRows = [...table.tFoot.rows];
+const tHeadRows = table.tHead ? [...table.tHead.rows] : [];
+const firstTBody = table.tBodies.length ? table.tBodies[0] : null;
+const tBodyRows = firstTBody ? [...firstTBody.rows] : [];
+const tFootRows = table.tFoot ? [...table.tFoot.rows] : [];
 
 const newColumn = (tEntity) => {
   tEntity.forEach((row) => {
-    const newCell = row.cells[1].cloneNode(true);
+    const sourceCell = row.cells[1];
 
-    row.insertBefore(newCell, row.lastElementChild);
+    if (!sourceCell) {
+      return;
+    }
+
+    const newCell = sourceCell.cloneNode(true);
+    const refCell = row.cells[row.cells.length - 1];
+
+    if (refCell) {
+      row.insertBefore(newCell, refCell);
+    }
   });
 };
 
